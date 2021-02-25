@@ -3,6 +3,7 @@ const button = document.querySelector('.button-play');
 
 button.addEventListener('click', () => {
   creatingHero();
+  selectClass();
   alert(`Now your hero was created
       Write /help for more info`);
   interfaceHero();
@@ -18,26 +19,28 @@ function creatingHero() {
       heroName = prompt('Choose name for your hero');
     }
   }
-  alert(`You can choose 2 classes for your hero
-        1) Warrior
-        2) Archer`)
-  let heroClass = prompt('Choose your class')
-  if (heroClass == 'Warrior') {
-    hero.class = heroClass;
-    hero.weapon = 'Stone sword'
-    hero.items.push('Apple')
-  } else if (heroClass == 'Archer') {
-    hero.class = heroClass;
-    hero.weapon = 'Wooden bow'
-    hero.items.push('Apple')
-  } else {
-    alert('Abort')
-  }
 
 };
 
+function selectClass() {
+  let heroClass = prompt(`You can choose 2 classes for your hero
+        1) Warrior
+        2) Archer`)
+  if (heroClass == '1') {
+    hero.class = 'Warrior';
+    hero.weapon = 'Stone sword'
+    hero.items.push('Apple')
+  } else if (heroClass == '2') {
+    hero.class = 'Archer';
+    hero.weapon = 'Wooden bow'
+    hero.items.push('Apple')
+  } else {
+      selectClass();
+}
+};
+
 function interfaceHero() {
-  let commandLine;
+  let commandLine
   do {
     commandLine = prompt('Write your command with /')
     if (commandLine == '/exit') {
@@ -54,6 +57,13 @@ function interfaceHero() {
         Name: ${hero.name}
         Class: ${hero.class}
         Weapon: ${hero.weapon}`);
+    } else if (commandLine == '/items') {
+      alert(`${'Your inventory'.toUpperCase()}
+        slot 1: ${hero.items[0]}
+        slot 2: ${hero.items[1]}
+        slot 3: ${hero.items[2]}
+        slot 4: ${hero.items[3]}
+        slot 5: ${hero.items[4]}`)
     } else if (commandLine == '/walk') {
       alert('You strolling throught the dark')
       const findingEnemy = randomModule(1, 100)
@@ -78,5 +88,7 @@ const hero = {
   name: '',
   class: '',
   weapon: '',
-  items: [],
+  items: ['Health Water',],
 }
+
+button.click();
